@@ -9,6 +9,7 @@
     "@types/koa-bodyparser": "^4.2.0",
     "@types/koa-multer": "^1.0.0",
     "@types/koa-router": "^7.0.27",
+    "@types/node": "^8.10.11",
     "bcrypt": "^2.0.1",
     "jsonwebtoken": "^8.2.1",
     "koa": "^2.5.0",
@@ -17,10 +18,12 @@
     "koa-router": "^7.4.0",
     "pg": "^7.4.1",
     "routing-controllers": "^0.7.7",
-    "typeorm": "^0.2.4"
+    "typeorm": "^0.2.4",
+    "typescript": "^2.8.3"
   },
   "scripts": {
     "start": "node .",
-    "dev": "nodemon --inspect ."
+    "dev": "nodemon --inspect .",
+    "watch": "node_modules/.bin/tsc -w"
   }
 }
