@@ -1,12 +1,14 @@
 import 'reflect-metadata'
 import { createKoaServer, Action, BadRequestError } from "routing-controllers"
 import { verify } from './jwt'
+import UsersController from './routes/users'
 
-const port = process.env.PORT || 4008
+const port = process.env.PORT || 4001
 
 const app = createKoaServer({
   cors: true,
   controllers: [
+    UsersController
   ],
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
