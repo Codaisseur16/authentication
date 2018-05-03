@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { createKoaServer, Action, BadRequestError } from "routing-controllers"
 import { verify } from './jwt'
-import UsersController from './authorization'
+import UsersController from './authentication'
 
 const port = process.env.PORT || 4005
 
