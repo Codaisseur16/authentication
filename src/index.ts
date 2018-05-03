@@ -28,11 +28,15 @@ const app = createKoaServer({
   },
   currentUserChecker: async (action: Action) => {
     const header: string = action.request.headers.authorization
+    // console.log(header)
+    
     if (header && header.startsWith('Bearer ')) {
       const [ , token ] = header.split(' ')
 
       if (token) {
         const {id} = verify(token)
+        // console.log(verify(token))
+        
         return {id}
       }
     }

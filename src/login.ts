@@ -11,14 +11,11 @@ export default class LoginController {
   async authenticate(
     @Body() body: {email, password}
   ) {
-    console.log('line 15 auth')
     return request
       .post(`${usersUrl}/logins`)
       .send(body)
       .then(result => {
-        console.log('line 20 auth', result.body)
-        const jwt = sign ({id: result.body.id!})
-          console.log({jwt})\
+        const jwt = sign ({id: result.body.user.id!})
           const received = result.body
           return {jwt, received}
       })

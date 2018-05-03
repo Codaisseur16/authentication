@@ -1,28 +1,21 @@
-import { JsonController, Get, Param } from "routing-controllers"
+import { JsonController, Put, CurrentUser, Body } from "routing-controllers"
 import * as request from "superagent"
-import { sign } from "./jwt"
 
 const usersUrl = process.env.USERS_URL || "http://localhost:4003"
 
 @JsonController()
 export default class UsersController {
-
-  @Get("/users/:id")
+  
+  @Put("/users/:id")
   async getUsersId(
-    @Param('id') userId: number
-  ) {
-    console.log('line 21 auth', userId)
-    return request
-      .get(`${usersUrl}/users/${userId}`)
-      .then(result => {
-        console.log('line 28 auth', result.body)
-        const jwt = sign({ id: userId! })
-          console.log({jwt})
-          return {jwt}
-      })
-      .catch(err => {
-        return { message: err.message + userId };
-      });
+    @CurrentUser() user: {id},
+    @Body() update: {firstName: string, lastName: string, email: string, password: string, teacher: boolean} 
+) {
+    const result = await request
+      .put(`${usersUrl}/users/${user.id}`)
+      .send({ ...update })
+
+    return result.body
   }
 
   // @Get("/:users/:id")
@@ -30,14 +23,10 @@ export default class UsersController {
   //   @Param('id') userId: number,
   //   @Param('users') users: string
   // ) {
-  //   console.log('line 21 auth', userId, users)
   //   return request
   //     .get(`${usersUrl}/${users}/${userId}`)
   //     .then(result => {
-  //       console.log('line 28 auth', result.body)
-  //       const jwt = sign({ id: userId! })
-  //         console.log({jwt})
-  //         return {jwt}
+  //       console.log('line 32 auth', result.body)
   //     })
   //     .catch(err => {
   //       return { message: err.message + userId };
