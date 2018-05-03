@@ -2,7 +2,7 @@ import { JsonController, Get, Param } from "routing-controllers"
 import * as request from "superagent"
 import { sign } from "./jwt"
 
-const usersUrl = process.env.USERS_URL || "http://localhost:4008"
+const usersUrl = process.env.USERS_URL || "http://localhost:4003"
 
 @JsonController()
 export default class UsersController {
