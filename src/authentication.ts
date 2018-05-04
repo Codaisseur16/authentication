@@ -1,7 +1,8 @@
-import { JsonController, Put, CurrentUser, Body } from "routing-controllers"
+import { JsonController, Put, Post, CurrentUser, Body } from "routing-controllers"
 import * as request from "superagent"
 
 const usersUrl = process.env.USERS_URL || "http://localhost:4003"
+const quizzesUrl = process.env.QUIZZES_URL || "http://localhost:4001"
 
 @JsonController()
 export default class UsersController {
@@ -14,6 +15,18 @@ export default class UsersController {
     const result = await request
       .put(`${usersUrl}/users/${user.id}`)
       .send({ ...update })
+
+    return result.body
+  }
+
+  @Post("/quizzes/")
+  async postQuizzes(
+    @CurrentUser() user: {id},
+    @Body() body: object 
+) {
+    const result = await request
+      .post(`${quizzesUrl}/quizzes`)
+      .send(body)
 
     return result.body
   }
